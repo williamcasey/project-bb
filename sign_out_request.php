@@ -1,15 +1,15 @@
 <?php
 
-//include './sign-out-class.php';
-//$sign = new sign_out("localhost", "root", "", "lsmsa");
+include './sign-out-class.php';
+$sign = new sign_out("localhost", "root", "", "lsmsa");
 
-var_dump($_POST);
+$info = array("student" => intval($_POST["student"]), "location" => $_POST["location"], "companions" => $_POST["companions"], "return_time" => $_POST["return_time"]);
 
-//$post_data = array("student" => $_POST["student"], "location" => $_POST["location"], "companions" => $_POST["companions"], "return_time" => $_POST["return_time"]);
-
-//svar_dump($post_data);
-
-
+if($sign->sign_out_request($info['student'], $info['location'], $info['return_time'], $info['companions']) == TRUE) {
+	echo "sign out request was recorded";
+} else {
+	echo "error with sign out request";
+}
 
 
 ?>
