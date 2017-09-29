@@ -66,7 +66,7 @@ class sign_out {
 
 		//get current UTC time
 		$sign_out_time = date("Y-m-d H:i:s");
-		$insert_values = array($student, $sign_out_time, $location, $return_time, $companions);
+		$insert_values = array($student, $sign_out_time, $return_time, $location, $companions);
 		var_dump($insert_values);
 		//create query
 		$sql = "INSERT INTO requests(`student_id`, `sign_out_time`, `planned_return_time`, `location`, `companions`) VALUES (?, ?, ?, ?, ?)";
