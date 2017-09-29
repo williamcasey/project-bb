@@ -64,6 +64,7 @@ class sign_out {
 		//begin mysql transaction
 		$this->mysql->beginTransaction();
 
+		//get current UTC time
 		$sign_out_time = date("Y-m-d H:i:s");
 
 		$insert_values = array($student, $sign_out_time, $location, $return_time, $companions);
