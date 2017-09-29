@@ -55,6 +55,29 @@ class sign_out {
 		}
 		return $out;
 	}
+
+	function sign_out_request($student, $location, $return_time, $companions) {
+		//begin mysql transaction
+		$this->mysql->beginTransaction();
+		$insert_values = array($student, $location, $return_time, $companions);
+		//create query
+		$sql = "INSERT INTO requests(`student_id`, `sign_out_time`, `planned_return_time`, `location`, `companions`) VALUES (?, ?, ?, ?, ?)";
+		//create prepared insert statement from the query
+		$stmt = $this->mysql->prepare($sql);
+		//execute prepared statement and output any errors
+		try {
+		    $stmt->execute($insert_values);
+		} catch (PDOException $e) {
+	    	throw $e;
+	   	} 
+		//end transaction
+		if($this->mysql->commit()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 }
 
 
