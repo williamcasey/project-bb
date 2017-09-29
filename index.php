@@ -13,8 +13,8 @@ $sign = new sign_out("localhost", "root", "", "lsmsa");
 //var_dump($sign->student_info(3));
 //var_dump($sign->student_info(2));
 
-
-var_dump();
+date_default_timezone_set('UTC');
+echo date("Y-m-d H:i:s");
 
 
 

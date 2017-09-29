@@ -8,6 +8,10 @@ class sign_out {
 	
 	//on initialization connect to MySQL database using PDO
 	function __construct($host, $user, $pass, $db, $charset="utf8mb4") {
+
+		//define UTC timezone for timestamps
+		date_default_timezone_set('UTC');
+
 		if(!$this->mysql = new PDO('mysql:host='.$host.';dbname='.$db.';charset='.$charset, $user, $pass)) {
 			echo "Could not to the connect to the MySQL database";
 			return FALSE;
@@ -59,7 +63,10 @@ class sign_out {
 	function sign_out_request($student, $location, $return_time, $companions) {
 		//begin mysql transaction
 		$this->mysql->beginTransaction();
-		$insert_values = array($student, $location, $return_time, $companions);
+
+		$sign_out_time = date("Y-m-d H:i:s");
+
+		$insert_values = array($student, $sign_out_time, $location, $return_time, $companions);
 		//create query
 		$sql = "INSERT INTO requests(`student_id`, `sign_out_time`, `planned_return_time`, `location`, `companions`) VALUES (?, ?, ?, ?, ?)";
 		//create prepared insert statement from the query
