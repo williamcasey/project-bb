@@ -48,7 +48,7 @@ class sign_out {
 		return $out;
 	}
 
-	function get_requests($time) {
+	function get_requests($time = '1970-01-01 00:00:00') {
 		$query = "SELECT `student_id`, `sign_out_time`, `planned_return_time`, `location`, `companions`, `check_in`, `check_in_time`, `sign_in_time`, `active`, `approved`, `approved_by` FROM `requests` WHERE `active` = ? AND `sign_out_time` > ?";
 		$stmt = $this->mysql->prepare($query);
 		$data = array(1, $time);
@@ -84,6 +84,95 @@ class sign_out {
 			return FALSE;
 		}
 	}
+
+	function is_active($request) {
+		$query = "SELECT `active` FROM `requests` WHERE `request_id` = ?";
+		$stmt = $this->mysql->prepare($query);
+		$data = array($request);
+		if ($stmt->execute($data)) {
+			$result = $stmt->fetch();
+			if($result['active'] == 1) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		} else {
+			return FALSE;
+		}
+	}
+
+	function deactivate($request) {
+		$this->mysql->beginTransaction();
+		$values = array($request);
+		$query = "UPDATE `requests` SET `active` = 0 WHERE `request_id` = ?";
+		//create prepared insert statement from the query
+		$stmt = $this->mysql->prepare($query);
+		//execute prepared statement and output any errors
+		try {
+			$stmt->execute($values);
+		} catch (PDOException $e) {
+		    throw $e;
+		} 
+		//end transaction
+		if($this->mysql->commit()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	function sla_approve($request) {
+		if(is_int($request) && $this->is_active($request)) {
+			//begin mysql transaction
+			$this->mysql->beginTransaction();
+			$values = array($request);
+			$query = "UPDATE `requests` SET `approved` = 1 WHERE `request_id` = ?";
+			//create prepared insert statement from the query
+			$stmt = $this->mysql->prepare($query);
+			//execute prepared statement and output any errors
+			try {
+			    $stmt->execute($values);
+			} catch (PDOException $e) {
+		    	throw $e;
+		   	} 
+			//end transaction
+			if($this->mysql->commit()) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		} else {
+			return FALSE;
+		}
+	}
+
+	function sla_decline($request) {
+		if(is_int($request) && $this->is_active($request)) {
+			//begin mysql transaction
+			$this->mysql->beginTransaction();
+			$values = array($request);
+			$query = "UPDATE `requests` SET `approved` = 0 WHERE `request_id` = ?";
+			$this->deactivate($request);
+			//create prepared insert statement from the query
+			$stmt = $this->mysql->prepare($query);
+			//execute prepared statement and output any errors
+			try {
+			    $stmt->execute($values);
+			} catch (PDOException $e) {
+		    	throw $e;
+		   	} 
+			//end transaction
+			if($this->mysql->commit()) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+
+		} else {
+			return FALSE;
+		}
+	}
+
 
 }
 
