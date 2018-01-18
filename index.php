@@ -10,9 +10,14 @@ include './sign-out-class.php';
 $sign = new sign_out("localhost", "root", "", "lsmsa");
 
 
-$sign->is_active(10);
 
 ?>
+<style>
+	th, td {
+		width: 160px;
+		text-align: center;
+	}
+</style>
 
 </head>
 <body>
@@ -29,13 +34,19 @@ $sign->is_active(10);
 <?php
 $data = $sign->get_requests('2017-08-21 20:11:37');
 foreach ($data as $row) {
-	echo "<tr>";
-	foreach ($row as $val) {
-		echo "<td>".$val."</td>";
-	}
-	
+	$student_info = $sign->student_info($row['student_id']);
+?>
 
-	echo "</tr>";
+	<tr>
+		<td><?php echo $row['student_id']; ?></td>
+		<td><?php echo $student_info['last']; ?></td>
+		<td><?php echo $student_info['first']; ?></td>
+		<td><?php echo $row['sign_out_time']; ?></td>
+		<td><?php echo $row['location']; ?></td>
+		<td><?php echo $row['companions']; ?></td>
+	</tr>
+
+<?php
 }
 
 

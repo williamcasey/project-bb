@@ -37,14 +37,26 @@ class sign_out {
 		}
 	}
 
+	//function to create placeholder values in sql queries for prepared statements
+	function placeholders($text, $count=0){
+	    $result = array();
+	    if($count > 0){
+	        for($x=0; $x<$count; $x++){
+	            $result[] = $text;
+	        }
+	    }
+	    return implode(",", $result);
+	}
+
 	function student_info($id) {
 		$query = "SELECT `student_id`, `first_name`, `last_name`, `class`, `image` FROM `students` WHERE `student_id` = ?";
 		$stmt = $this->mysql->prepare($query);
+		$out = NULL;
 		if ($stmt->execute(array($id))) {
 			while($row = $stmt->fetch()) {
-		  		$out[] = array('id' => $row['student_id'], 'first' => $row['first_name'], 'last' => $row['last_name'], 'class' => $row['class'], 'image' => $row['image']);
+		  		$out = array('id' => $row['student_id'], 'first' => $row['first_name'], 'last' => $row['last_name'], 'class' => $row['class'], 'image' => $row['image']);
 		  	}
-		}
+		} 
 		return $out;
 	}
 
@@ -173,6 +185,36 @@ class sign_out {
 		}
 	}
 
+	function create_request($student_id, $location, $companions, $return_time) {
+		//begin mysql transaction
+		$this->mysql->beginTransaction();
+		$sign_out_time = date("Y-m-d H:i:s", time());
+		$insert_values = array($student_id, $sign_out_time, $return_time, $location, $companions);
+
+		$values_fields = array("student_id", "sign_out_time", "planned_return_time", "location", "companions");
+		$question_marks[] = '('.$this->placeholders('?', sizeof($insert_values)).')';
+
+		var_dump($insert_values);
+		//create query
+		$sql = "INSERT INTO `requests` (`".implode("`,`", $values_fields)."`) VALUES ".implode(',', $question_marks);
+		echo $sql;
+		//create prepared insert statement from the query
+		
+		$stmt = $this->mysql->prepare($sql);
+		//execute prepared statement and output any errors
+		try {
+		    $stmt->execute($insert_values);
+		} catch (PDOException $e) {
+	    	throw $e;
+	   	} 
+		//end transaction
+		if($this->mysql->commit()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+
+	}
 
 }
 
