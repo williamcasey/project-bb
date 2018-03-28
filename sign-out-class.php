@@ -189,15 +189,17 @@ class sign_out {
 		//begin mysql transaction
 		$this->mysql->beginTransaction();
 		$sign_out_time = date("Y-m-d H:i:s", time());
+		//$return = date("Y-m-d")." ".$return_time.":00";
+
 		$insert_values = array($student_id, $sign_out_time, $return_time, $location, $companions);
 
 		$values_fields = array("student_id", "sign_out_time", "planned_return_time", "location", "companions");
 		$question_marks[] = '('.$this->placeholders('?', sizeof($insert_values)).')';
 
-		var_dump($insert_values);
+		//var_dump($insert_values);
 		//create query
 		$sql = "INSERT INTO `requests` (`".implode("`,`", $values_fields)."`) VALUES ".implode(',', $question_marks);
-		echo $sql;
+		//echo $sql;
 		//create prepared insert statement from the query
 		
 		$stmt = $this->mysql->prepare($sql);
