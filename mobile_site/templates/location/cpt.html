@@ -4,8 +4,8 @@
   <head>
     <title>lsmsaApp</title>
 
-    <link href="../static/css/signup.css" rel="stylesheet">
-    <link href="../static/css/buttons.css" rel="stylesheet">
+    <link href="../../static/css/signup.css" rel="stylesheet">
+    <link href="../../static/css/buttons.css" rel="stylesheet">
   </head>
 
   <body>
@@ -18,20 +18,22 @@
       <div id = "fullscreen" class="jumbotron">
         <h1>Sign Out</h1>
         <div id="log_img">
-          <img src="logo.png" style="width:100%;height:auto;">
+          <img src="../logo.png" style="width:100%;height:auto;">
         </div>
-        <form action="sign_in.html" method="get">
+        <form action="../sign_in.html" method="get">
           Location
-          <input type="text" name="location" id="inputLocation" class="form-control" placeholder="Enter Location..." required autofocus>
+          <a style="display:block" href="../sign_out.html">
+          <input type="text" name="location" id="inputLocation" class="form-control" placeholder="Enter Location..." value ="CPT" required autofocus>
+          </a>
           Frequent Locations
           <br><br>
-          <a style="display:block" href="location/cpt.html">
-            <div class="left button">CPT</div>
+          <a style="display:block" href="cpt.html">
+            <div class="active left button">CPT</div>
           </a>
-          <a style="display:block" href="location/front_street.html">
+          <a style="display:block" href="front_street.html">
             <div class="middle button">Front Street</div>
           </a>
-          <a style="display:block" href="location/caddo.html">
+          <a style="display:block" href="caddo.html">
             <div class="right button">Caddo</div>
           </a>
           <br><br><br><br>
@@ -42,10 +44,10 @@
           
           <button type="submit" id="m_button" class="bottom middle button active" >Sign Out</button>
       </form>
-      <form class="form-signout" action="speed_bump.html" method="get">
+      <form class="form-signout" action="../speed_bump.html" method="get">
       <button type="submit" id="l_button" class="bottom left button" >Speed Bump</button>
       </form>
-      <form class="form-signout" action="check_in.html" method="get">
+      <form class="form-signout" action="../check_in.html" method="get">
       <button type="submit" id="r_button" class="bottom right button">Check In</button>
       </form>
       </div>
