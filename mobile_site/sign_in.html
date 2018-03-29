@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<html lang="en">
+  <head>
+    <title>lsmsaApp</title>
+
+    <link href="css/signup.css" rel="stylesheet">
+    <link href="css/buttons.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">lsmsaAPP</h3>
+      </div>
+
+      <div id = "fullscreen" class="jumbotron">
+        <h1>Sign In</h1>
+        <h3>Approved!</h3>
+        Press the "Sign In" button when you are ready to sign in
+        <div id="bmp_img">
+          <img src="photos/greenmark.png" style="width:100%;height:auto;">
+        </div>
+        <form action="sign_out.html" method="get">
+          <button type="submit" id="m_button" class="bottom middle button active" >Sign In</button>
+      </form>
+      <form class="form-signout" action="speed_bump.html" method="get">
+      <button type="submit" id="l_button" class="bottom left button" >Speed Bump</button>
+      </form>
+      <form class="form-signout" action="check_in.html" method="get">
+      <button type="submit" id="r_button" class="bottom right button">Check In</button>
+      </form>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; William Casey, Ben Walker 2018</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
