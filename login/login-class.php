@@ -48,7 +48,7 @@ class login {
 		}
 	}
 
-	function create_user($id, $username, $password, $first_name, $last_name, $class, $image) {
+	function create_user($id, $username, $password, $first_name, $last_name, $class) {
 		//begin mysql transaction
 		$this->mysql->beginTransaction();
 
@@ -58,10 +58,12 @@ class login {
 		//hash passwords
 		$hash = password_hash($password, PASSWORD_DEFAULT);
 
-		$insert_values = array($id, $username, $first_name, $last_name, $hash, $class, $image, $date_added);
+		$insert_values = array($id, $username, $first_name, $last_name, $hash, $class, $date_added);
+
+		var_dump($insert_values);
 
 		//create query
-		$sql = "INSERT INTO students(`student_id`, `user`, `first_name`, `last_name`, `password`, `class`, `image`, `date_added`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO students(`student_id`, `user`, `first_name`, `last_name`, `password`, `class`, `date_added`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		//create prepared insert statement from the query
 		$stmt = $this->mysql->prepare($sql);
 		//execute prepared statement and output any errors
