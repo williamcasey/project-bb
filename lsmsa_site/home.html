@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>LSMSA App</title>
+</head>
+
+<body>
+<div id="container"> 
+        
+        <div id="menu">
+            <ul>
+                <li class="menuitem"><a href="home.html">Home</a></li>
+                <li class="menuitem"><a href="active.html">Acitve</a></li>
+                <li class="menuitem"><a href="speed_bump.html">Speed Bump</a></li>
+                <li class="menuitem"><a href="permissions.html">Permissions</a></li>
+                <li class="menuitem"><a href="history.html">History</a></li>
+              <li class="menuitem"><a href="index.html">Logout</a></li>
+            </ul>
+        </div>
+
+</div>
+		<div id="content">
+        <div id="queue" class = "top menubox">
+            <h3>Queue</h3>
+        </div>
+        <div id="speed_bump" class = "top menubox">
+            <h3>Speed Bump</h3>
+            <div id = "text">
+            <form action="/bump.php">
+                Enter Name to Speedbump:<br>
+                    <input type="text" name="firstname" value="">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        </div>
+        <div id="permissions" class = "top menubox">
+            <h3>Permissions</h3>
+            <div id="text">
+            <form action="/permission.php">
+                Enter Name to Check Permissions:<br>
+                    <input type="text" name="firstname" value="">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        </div>
+        <div id="statistics" class = "menubox">
+            <div id="text">
+            <h3>Statistics</h3>
+        </div>
+        </div>
+        <div id="content_bottom"></div>
+            
+      </div>
+</body>
+</html>
