@@ -47,7 +47,38 @@ class login {
 			return FALSE;
 		}
 	}
-}
+
+	function create_user($id, $username, $password, $first_name, $last_name, $class, $image) {
+		//begin mysql transaction
+		$this->mysql->beginTransaction();
+
+		//get current UTC time
+		$date_added = date("Y-m-d H:i:s");
+
+		//hash passwords
+		$hash = password_hash($password, PASSWORD_DEFAULT);
+
+		$insert_values = array($id, $username, $first_name, $last_name, $hash, $class, $image, $date_added);
+
+		//create query
+		$sql = "INSERT INTO students(`student_id`, `user`, `first_name`, `last_name`, `password`, `class`, `image`, `date_added`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		//create prepared insert statement from the query
+		$stmt = $this->mysql->prepare($sql);
+		//execute prepared statement and output any errors
+		try {
+		    $stmt->execute($insert_values);
+		} catch (PDOException $e) {
+	    	throw $e;
+	   	} 
+		//end transaction
+		if($this->mysql->commit()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+} 
 
 
 ?>
