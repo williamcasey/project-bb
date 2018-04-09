@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<html lang="en">
+  <head>
+    <title>lsmsaApp</title>
+
+    <link href="../css/signup.css" rel="stylesheet">
+    <link href="../css/buttons.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">lsmsaAPP</h3>
+      </div>
+
+      <div id = "fullscreen" class="jumbotron">
+        <h1>Sign Out</h1>
+        <div id="log_img">
+          <img src="../photos/logo.png" style="width:100%;height:auto;">
+        </div>
+        <form action="../pending_sign_out.html" method="get">
+          Location
+          <a style="display:block" href="../sign_out.html">
+          <input type="text" name="location" id="inputLocation" class="form-control" placeholder="Enter Location..." value ="Front Street" required autofocus>
+          </a>
+          Frequent Locations
+          <br><br>
+          <a style="display:block" href="cpt.html">
+            <div class="left button">CPT</div>
+          </a>
+          <a style="display:block" href="front_street.html">
+            <div class="active middle button">Front Street</div>
+          </a>
+          <a style="display:block" href="caddo.html">
+            <div class="right button">Caddo</div>
+          </a>
+          <br><br><br><br>
+          Companions
+          <input type="text" name="companions" id="inputCompanion" class="form-control" placeholder="Enter Companions..." required>
+          Return Time
+          <input type="time" name="return_time" id="inputReturnTime" class="form-control" placeholder="Return Time" required><br>
+          
+          <button type="submit" id="m_button" class="bottom middle button active" >Sign Out</button>
+      </form>
+      <form class="form-signout" action="../speed_bump.html" method="get">
+      <button type="submit" id="l_button" class="bottom left button" >Speed Bump</button>
+      </form>
+      <form class="form-signout" action="../check_in.html" method="get">
+      <button type="submit" id="r_button" class="bottom right button">Check In</button>
+      </form>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; William Casey, Ben Walker 2018</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
+

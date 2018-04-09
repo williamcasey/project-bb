@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<html lang="en">
+  <head>
+    <title>lsmsaApp</title>
+
+    <link href="../static/css/signup.css" rel="stylesheet">
+    <link href="../static/css/buttons.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">lsmsaAPP</h3>
+      </div>
+
+      <div id = "fullscreen" class="jumbotron">
+        <h1>Speed Bump</h1>
+        <div id="bmp_img">
+          <img src="logo.png" style="width:100%;height:auto;">
+        </div>
+      <!-- Check if currently speedbumped Ajax: Displays if speedbumped-->
+      <form class="form-signout" action="speed_bump.html" method="get">
+      <button type="submit" id="l_button" class="bottom left button active" >Speed Bump</button>
+      </form>
+      <form action="sign_out.html" method="get">
+      <button type="submit" id="m_button" class="bottom middle button" >Sign Out</button>
+      </form>
+      <form class="form-signout" action="check_in.html" method="get">
+      <button type="submit" id="r_button" class="bottom right button">Check In</button>
+      </form>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; William Casey, Ben Walker 2018</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
+
