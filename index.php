@@ -32,7 +32,7 @@ $sign = new sign_out("localhost", "root", "", "lsmsa");
 		<th>Companions</th>
 	</tr>
 <?php
-$data = $sign->get_requests('2017-08-21 20:11:37');
+$data = $sign->get_requests();
 foreach ($data as $row) {
 	$student_info = $sign->student_info($row['student_id']);
 ?>

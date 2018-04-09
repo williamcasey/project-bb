@@ -5,6 +5,7 @@ class sign_out {
 	
 		//create variable for PDO MySQL connection
 	var $mysql = NULL;
+	var $last_request  = 0;
 	
 	//on initialization connect to MySQL database using PDO
 	function __construct($host, $user, $pass, $db, $charset="utf8mb4") {
@@ -60,15 +61,58 @@ class sign_out {
 		return $out;
 	}
 
-	function get_requests($time = '1970-01-01 00:00:00') {
-		$query = "SELECT `student_id`, `sign_out_time`, `planned_return_time`, `location`, `companions`, `check_in`, `check_in_time`, `sign_in_time`, `active`, `approved`, `approved_by` FROM `requests` WHERE `active` = ? AND `sign_out_time` > ?";
+	function update_last_id($val = 0) {
+
+		$this->mysql->beginTransaction();
+
+
+		$sql = "UPDATE `last_request` SET `request_id` = ? WHERE `id` = 1";
+		//create prepared insert statement from the query
+		$stmt = $this->mysql->prepare($sql);
+		$insert_values = array($val);
+		//execute prepared statement and output any errors
+		try {
+		    $stmt->execute($insert_values);
+		} catch (PDOException $e) {
+	    	throw $e;
+	   	} 
+		//end transaction
+		if($this->mysql->commit()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	function last_id($id = 1) {
+		$query = "SELECT `request_id` FROM `last_request` WHERE `id` = ?";
 		$stmt = $this->mysql->prepare($query);
-		$data = array(1, $time);
+		$data = array($id);
+		if ($stmt->execute($data)) {
+			$result = $stmt->fetch();
+			if(isset($result['request_id'])) {
+				return $result['request_id'];
+			} else {
+				return 0;
+			}
+		} 
+	}
+
+	function get_requests($after_id = NULL) {
+		$after_id = $this->last_id();
+		//echo $after_id;
+		//echo "start:".$this->last_request;
+		$query = "SELECT `request_id`, `student_id`, `sign_out_time`, `planned_return_time`, `location`, `companions`, `check_in`, `check_in_time`, `sign_in_time`, `active`, `approved`, `approved_by` FROM `requests` WHERE `active` = ? AND `request_id` > ? ORDER BY `request_id` DESC";
+		$stmt = $this->mysql->prepare($query);
+		$data = array(1, $after_id);
 		if ($stmt->execute($data)) {
 			while($row = $stmt->fetch()) {
-		  		$out[] = array('student_id' => $row['student_id'], 'sign_out_time' => $row['sign_out_time'], 'planned_return_time' => $row['planned_return_time'], 'location' => $row['location'], 'companions' => $row['companions'], 'approved' => $row['approved'], 'approved_by' => $row['approved_by']);
+		  		$out[] = array('request_id' => $row['request_id'], 'student_id' => $row['student_id'], 'sign_out_time' => $row['sign_out_time'], 'planned_return_time' => $row['planned_return_time'], 'location' => $row['location'], 'companions' => $row['companions'], 'approved' => $row['approved'], 'approved_by' => $row['approved_by']);
 		  	}
 		}
+		$this->update_last_id($out[0]['request_id']);
+		//echo "end:".$this->last_request;
+		//var_dump($out);
 		return $out;
 	}
 
@@ -217,6 +261,8 @@ class sign_out {
 		}
 
 	}
+
+
 
 }
 
