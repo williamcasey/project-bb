@@ -3,11 +3,69 @@
 <html lang="en">
   <head>
     <title>lsmsaApp</title>
-
     <link href="css/signup.css" rel="stylesheet">
     <link href="css/buttons.css" rel="stylesheet">
   </head>
-
+<link rel="apple-touch-icon" href="photos/logo_white.png">
+<link rel="icon" type="image/png" href="photos/logo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+  element.requestFullscreen()
+</script>
+  <script>
+    function check_day(){
+      var d = new Date();
+      var n = d.getDay();
+      if (n == 5 || n == 6){
+        document.getElementById("inputReturnTime").value = "23:59:00";
+      }
+      else{
+        document.getElementById("inputReturnTime").value = "21:00:00";
+      }
+    }
+    function activate_cpt(){
+      document.getElementById("cpt_button").style.backgroundColor = '#ddb904';
+      document.getElementById("front_button").style.backgroundColor = '#0769b5';
+      document.getElementById("caddo_button").style.backgroundColor = '#0769b5';
+      document.getElementById("inputLocation").defaultValue = 'CPT';
+    }
+    function activate_front(){
+      document.getElementById("cpt_button").style.backgroundColor = '#0769b5';
+      document.getElementById("front_button").style.backgroundColor = '#ddb904';
+      document.getElementById("caddo_button").style.backgroundColor = '#0769b5';
+      document.getElementById("inputLocation").defaultValue = 'Front Street';
+    }
+    function activate_caddo(){
+      document.getElementById("cpt_button").style.backgroundColor = '#0769b5';
+      document.getElementById("front_button").style.backgroundColor = '#0769b5';
+      document.getElementById("caddo_button").style.backgroundColor = '#ddb904';
+      document.getElementById("inputLocation").defaultValue = 'Caddo';
+    }
+    function clear_text(){
+      document.getElementById("inputLocation").defaultValue = 'Enter Location...';
+      document.getElementById("cpt_button").style.backgroundColor = '#0769b5';
+      document.getElementById("front_button").style.backgroundColor = '#0769b5';
+      document.getElementById("caddo_button").style.backgroundColor = '#0769b5';
+    }
+    function validate_time(time){
+      var d = new Date();
+      var n = d.getDay();
+      if (n != 5 || n != 6){
+        var input_time = document.getElementById("inputReturnTime").value
+        if (input_time > "9:00:00"){
+          alert("Illegal Time: Please Enter A Time Before 9:00")
+          input_time = ""
+        }
+      }
+      else{
+        if (input_time > "11:59:59"){
+          alert("Illegal Time: Please Enter A Time Before Midnight")
+          input_time = ""
+        }
+      }
+    }
+  window.onload = check_day
+  </script>
   <body>
 
     <div class="container">
@@ -20,30 +78,23 @@
         <div id="log_img">
           <img src="photos/logo.png" style="width:100%;height:auto;">
         </div>
-        <form action="pending_sign_out.html" method="get">
+		<form action="pending_sign_out.html" method="get">
           Location
-          <input type="text" name="location" id="inputLocation" class="form-control" placeholder="Enter Location..." required autofocus>
+            <input onclick= "clear_text()" type="text" name="location" id="inputLocation" class="form-control" placeholder="Enter Location..." required autofocus>
           Frequent Locations
           <br><br>
-          <a style="display:block" href="location/cpt.html">
-            <div class="left button">CPT</div>
-          </a>
-          <a style="display:block" href="location/front_street.html">
-            <div class="middle button">Front Street</div>
-          </a>
-          <a style="display:block" href="location/caddo.html">
-            <div class="right button">Caddo</div>
-          </a>
-          <br><br><br><br>
+            <div onclick= "activate_cpt()" class="left button" id="cpt_button" >CPT</div>
+            <div onclick= "activate_front()" class="middle button" id="front_button">Front Street</div>
+            <div onclick= "activate_caddo()" class="right button" id="caddo_button">Caddo</div>
+          <br><br><br><br><br>
           Companions
           <input type="text" name="companions" id="inputCompanion" class="form-control" placeholder="Enter Companions..." required>
           Return Time
-          <input type="time" name="return_time" id="inputReturnTime" class="form-control" placeholder="Return Time" required><br>
-          
+          <input type="time" name="return_time" id="inputReturnTime" class="form-control" required><br>
           <button type="submit" id="m_button" class="bottom middle button active" >Sign Out</button>
       </form>
       <form class="form-signout" action="speed_bump.html" method="get">
-      <button type="submit" id="l_button" class="bottom left button" >Speed Bump</button>
+      <button type="submit" id="l_button" class="bottom left button">Speed Bump</button>
       </form>
       <form class="form-signout" action="check_in.html" method="get">
       <button type="submit" id="r_button" class="bottom right button">Check In</button>

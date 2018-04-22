@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 <html lang="en">
+<link rel="apple-touch-icon" href="photos/logo_white.png">
+<link rel="icon" type="image/png" href="photos/logo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+  element.requestFullscreen()
+  function change_bump(){
+    imag = document.getElementById("bump_image")
+    text = document.getElementById("bumptext")
+    red = "file:///Users/ben/Dropbox/2_Projects/LSMSA_App/mobile_site/photos/redcross.png"
+    if (imag.src == red){
+      imag.src = 'photos/greenmark.png'
+      text.innerHTML = 'You have been speedbumped'
+
+    }
+    else{
+      imag.src = "photos/redcross.png"
+      text.innerHTML = 'You have not been speedbumped!'
+    }
+  }
+</script>
   <head>
     <title>lsmsaApp</title>
 
@@ -18,14 +38,14 @@
       <div id = "fullscreen" class="jumbotron">
         <h1>Speed Bump</h1>
         <br>
-        <h3>You have been speedbumped!</h3>
+        <div id = "bumptext">
+        You have been speedbumped!
+        </div>
         <div id="bmp_img">
-          <img src="photos/greenmark.png" style="width:100%;height:auto;">
+          <img id = "bump_image" src="photos/greenmark.png" style="width:100%;height:auto;">
         </div>
       <!-- Check if currently speedbumped Ajax: Displays if speedbumped-->
-      <form class="form-signout" action="speed_bump_dis.html" method="get">
-      <button type="submit" id="l_button" class="bottom left button active" >Speed Bump</button>
-      </form>
+      <button type="button" onclick = "change_bump()" id="l_button" class="bottom left button active" >Speed Bump</button>
       <form action="sign_out.html" method="get">
       <button type="submit" id="m_button" class="bottom middle button" >Sign Out</button>
       </form>

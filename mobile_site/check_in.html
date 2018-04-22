@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 <html lang="en">
+<link rel="apple-touch-icon" href="photos/logo_white.png">
+<link rel="icon" type="image/png" href="photos/logo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+  element.requestFullscreen()
+</script>
   <head>
     <title>lsmsaApp</title>
 
@@ -18,7 +24,7 @@
       <div id = "fullscreen" class="jumbotron">
         <h1>Check In</h1>
         <div id="chk_img">
-          <img src="photos/logo.png" style="width:90%;height:auto;">
+          <img src="photos/logo.png" style="width:100%;height:auto;">
         </div>
         <form action="pending_check_in.html" method="get">
           <input type="text" name="location" id="inputLocation" class="form-control" placeholder="Enter Current Location..." required autofocus>
